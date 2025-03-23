@@ -1,53 +1,82 @@
-let a = prompt("Enter number:");
-function f1() {
-    let b = a * 2;
-    if (b > 10) {
-        f2(b);
+let x = Math.floor(Math.random() * 10);
+let y = 5;
+let data = [];
+
+function start() {
+    console.log("Starting the process...");
+    processA(x);
+}
+
+function processA(n) {
+    if (n > 5) {
+        console.log("Processing A:", n);
+        y += n;
+        processB(y);
     } else {
-        f3();
+        console.log("A is small, calling C");
+        processC(n * 2);
     }
 }
 
-function f2(val) {
-    let c = val / 2;
-    if (c < 5) {
-        console.log("Too small");
-        f3();
+function processB(m) {
+    for (let i = 0; i < m; i++) {
+        data.push(i * 2);
+        if (i % 3 === 0) {
+            processD(i);
+        }
+    }
+    console.log("Process B done, calling E");
+    processE();
+}
+
+function processC(p) {
+    console.log("Processing C:", p);
+    if (p % 2 === 0) {
+        processF(p / 2);
     } else {
-        f4(c);
+        for (let j = 0; j < p; j++) {
+            console.log("Looping in C:", j);
+            if (j > 3) processD(j);
+        }
     }
 }
 
-function f3() {
-    for (let i = 0; i < 3; i++) {
-        console.log("Looping:", i);
+function processD(q) {
+    console.log("Processing D:", q);
+    if (q > 7) {
+        processA(q - 3);
+    } else {
+        processF(q + 2);
     }
+}
+
+function processE() {
+    let sum = data.reduce((a, b) => a + b, 0);
+    console.log("Sum in E:", sum);
+    if (sum > 50) {
+        processG();
+    } else {
+        processF(sum % 10);
+    }
+}
+
+function processF(r) {
+    console.log("Processing F:", r);
+    if (r < 5) {
+        processA(r + 1);
+    } else {
+        processD(r - 2);
+    }
+}
+
+function processG() {
+    console.log("Final Process G executed, resetting...");
+    data = [];
     if (Math.random() > 0.5) {
-        f5();
-    }
-}
-
-function f4(num) {
-    console.log("Final Value:", num);
-    if (num % 2 === 0) {
-        f6();
+        start();
     } else {
-        f5();
+        console.log("End of execution.");
     }
 }
 
-function f5() {
-    console.log("Executing function f5");
-    if (Math.random() > 0.3) {
-        f1();
-    } else {
-        console.log("End reached");
-    }
-}
-
-function f6() {
-    console.log("Function f6 executed");
-    f2(8);
-}
-
-f1();
+start();
